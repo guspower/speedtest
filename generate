@@ -1,0 +1,16 @@
+#!/bin/bash
+
+thousand=1024
+input=/dev/urandom
+
+counter=1
+steps=`seq 1 32 1024`
+bytes=1
+
+for step in $steps
+do
+  output=`printf "%0*d" 2 $counter`
+  dd if=$input of=$output bs=$bytes count=1
+  bytes=`expr $step \* $thousand`
+  counter=`expr $counter + 1`
+done
